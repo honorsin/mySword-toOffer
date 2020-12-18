@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      function isPrime(num) {
+        if (num == 1) {
+          return true;
+        }
+        for (let i = 2; i <= num; i++) {
+          if (num % i == 0) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      console.log(isPrime(7));
+      //优化后的质数
+      function isPrime2(num) {
+        if (num == 1) {
+          return trueu;
+        }
+        let squrt = parseInt(Math.sqrt(num));
+        for (let i = 2; i <= squrt; i++) {
+          if (num % i == 0) {
+            return false;
+          }
+        }
+        return true;
+      }
+      let obj = {
+        func: function() {
+          return 1;
+        }
+      };
+
+      obj.func = null;
+      let func2 = obj.func;
+
+      console.log(func2);
+
+      console.log(isPrime2(7));
+
+      function binsort(arr) {
+        if (arr.length == 0) {
+          return [];
+        }
+        let left = [];
+        let right = [];
+
+        let pivot = arr[0];
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i] < pivot) {
+            left.push(arr[i]);
+          } else {
+            right.push(arr[i]);
+          }
+        }
+        return binsort(left).concat(pivot, binsort(right));
+      }
+      console.log(binsort([4, 4, 14, 8, 478, 14, 34]));
+      let str = "a=1;b=2;c=3";
+
+      const objilize = function(string) {
+        string.split(";").reduce((a, b) => {
+          if (typeof a === "string")
+            a = {
+              [a.split("=")[0].trim()]: a.split("=")[1]
+            };
+          return Object.assign(a, {
+            [b.split("=")[0].trim()]: b.split("=")[1]
+          });
+        });
+      };
+      var twoSum = function(nums, target) {
+        var result = {};
+        var len = nums.length;
+        for(var i=0;i<len;i++){
+          var diff = target - nums[i];
+          if(diff in result){
+            return [result[diff],i]
+          }else{
+            return  false;
+          }
+        }
+      };
+
+  console.log(twoSum([2,4,6,9],19))
+ let testArr=[2,4,65,2,5]
+      console.log(testArr.indexOf(4))
+
+      function sum_integers(a, b) {
+    return a > b
+           ? 0
+           : a + sum_integers(a + 1, b);
+}
+console.log(sum_integers(2,4))
+
+
+obj233={
+  1:"a",
+  2:{
+    3:"c"
+  }
+}
+console.log(obj233["2"]["3"])
+function deriv(g) {
+    return x => (g(x + dx) - g(x)) / dx;
+}
+const dx = 0.00001;
+function cube(x) { return x * x * x; }
+console.log(deriv(cube)(5));
+    </script>
+  </body>
+</html>

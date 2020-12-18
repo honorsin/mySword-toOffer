@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <script>
+      function HashTable() {
+        this.storage = [];
+        this.count = 0;
+        this.limit = 7;
+        HashTable.prototype.hashFun = function(str, size) {
+          let hashCode = 0;
+          for (let i = 0; i < str.length; i++) {
+            hashCode = 37 * hashCode + str.charCodeAt(i);
+          }
+          let index = hashCode % size;
+          return index;
+        };
+        HashTable.prototype.put = function(key, value) {
+          let index = this.hashFun(key, this.limit);
+          let bucket = this.storage[index];
+          if (bucket == null) {
+            bucket = [];
+            this.storage[index] = bucket;
+          }
+          for (let i = 0; i < bucket.length; i++) {
+            let tuple = bucket[i];
+            if (tuple[0] == key) {
+              tuple[1] = value;
+              return;
+            }  
+          }
+          bucket.push([key, value]);
+          this.count += 1;
+          if (this.count > this.limit * 0.75) {
+           let newSize=this.limit*2
+           let newPrime=this.getPrime(newSize)
+            this.resize(newPrime)
+          }
+        };
+        HashTable.prototype.get = function(key) {
+          let index = this.hashFun(key, this.limit);
+          let bucket = this.storage[index];
+          if (bucket == null) {
+            return null;
+          }
+          for (let i = 0; i < bucket.length; i++) {
+            let tuple = bucket[i];
+            if ((tuple[0] = key)) {
+              return tuple[1];
+            }
+          }
+          return null;
+        };
+        HashTable.prototype.remove = function(key) {
+          let index = this.hashFun(key, this.limit);
+          let bucket = this.storage[index];
+          if (bucket == null) {
+            return null;
+          }
+          for (let i = 0; i < bucket.length; i++) {
+            let tuple = bucket[i];
+            if (tuple[0] = key) {
+              bucket.splice(i, 1);
+              this.count--;
+              if (this.limit>7&& this.count< this.limit * 0.25) {
+                let newSize=Math.floor(this.limit/2)
+                let newPrime =this.getPrime(newSize)
+                this.resize(Math.floor(newPrime))
+              }
+              return tuple[1];
+            }
+          }
+          return null;
+        };
+        HashTable.prototype.isEmpty = function() {
+          return this.count == 0;
+        };
+        HashTable.prototype.size = function() {
+          return this.count;
+        };
+        HashTable.prototype.resize = function(newLimit) {
+          let oldStorage = this.storage;
+          this.storage = [];
+          this.count = 0;
+          this.limit = newLimit;
+          for (let i = 0; i < oldStorage.length; i++) {
+            let bucket = oldStorage[i];
+            if (bucket == null) {
+              continue;
+            }
+            for (let j = 0; j < bucket.length; j++) {
+              let tuple = bucket[j];
+              this.put(tuple[0], tuple[1]);
+            }
+          }
+        };
+        HashTable.prototype.isPrime=function (num){
+        let squrt=parseInt(Math.sqrt(num))
+         for(let i=2;i<=sqrt;i++){
+             if(num%i==0){
+                 return false
+             }
+         }
+         return true
+        }
+        HashTable.prototype.getPrime=function(limit){
+        while(!this.isPrime(limit))
+        {
+          limit++
+        }
+        return limit
+      }
+    }
+      let ht = new HashTable();
+      ht.put("abc", "321");
+      ht.put("asd", "342");
+      console.log(ht.get("abc"));
+    </script>
+  </body>
+</html>

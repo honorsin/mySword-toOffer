@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <script>
+   function fo(arr,len) {
+  var flag = false
+  var arr1 = []
+  for (let i = 0; i< arr.length; i++) {
+    let isAry = Object.prototype.toString.call(arr[i]) == '[object Array]'
+    if (isAry) {
+      for(let j = 0; j< arr[i].length; j ++) {
+        arr1.push(arr[i][j])
+      }
+      flag = true
+    }
+  }
+  if (flag) {
+    len ++
+    return fo(arr1,len)
+  }else {
+    return len
+  }
+}
+    let lens = fo([1, [2,[2.[2,[4,[5]]]]]], 1);
+    console.log(lens);
+
+    // function arrdep(s) {
+    //   let dep = 1;
+    //   let i=0
+    //     if (s[i] instanceof Array) {
+    //       for (let j = 0; j<s[i].length;j++) {
+    //         i++
+    //       dep++;
+    //       return arrdep(s[i][j]);
+    //     }
+    //     } else {
+    //       i++;
+    //       return arrdep(s[i]);
+    //     }
+     
+    //   debugger;
+    //   return dep;
+    // }
+    // console.log(arrdep([1, [2]]));
+    new Promise( function(resolve){
+      console.log('pr1')
+      resolve()
+    }).then(function(){
+      console.log('pr2')
+    })
+  </script>
+</body>
+
+</html>

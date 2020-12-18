@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <script>
+        function PriorityQueue() {
+
+            function QueueElement(element, priority) {
+                this.element = element;
+                this.priority = priority
+            }
+           
+            this.items = new Array;
+            PriorityQueue.prototype.enqueue = function (element, priority) {
+                let queueElement = new QueueElement(element, priority)
+                if (this.items.length == 0) {
+                    this.items.push(queueElement)
+                } else {
+                    let added = false
+                    for (let i = 0; i < this.items.length; i++) {
+                        if (queueElement.priority < this.items[i].priority) {
+                            this.items.splice(i, 0, queueElement)
+                            added = true
+                            break
+                        }
+                    }
+                    if (!added) {
+                        this.items.push(queueElement)
+                    }
+                }
+            }
+            PriorityQueue.prototype.dequeue = function () {
+                return this.items.shift()
+            };
+            PriorityQueue.prototype.front = function () {
+                return this.items[0];
+            }
+            PriorityQueue.prototype.isEmpty = function () {
+                return this.items.length == 0
+            };
+            PriorityQueue.prototype.size = function () {
+                return this.items.length
+            };
+        }
+        const pq = new PriorityQueue();
+        pq.enqueue('abd', 2);
+        pq.enqueue('dsad', 23);
+        pq.enqueue('dsd', 1);
+        console.log(pq)
+    </script>
+</body>
+
+</html>

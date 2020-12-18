@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head >
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+    
+        <script>
+            function Queue(){
+                this.items=new Array;
+                Queue.prototype.enqueue=(element)=> this.items.push(element);
+                Queue.prototype.dequeue=function (){ 
+                    return  this.items.shift()
+                    };
+                Queue.prototype.front=function (){ 
+                    return  this.items[0];
+                    }
+                Queue.prototype.isEmpty=function() {
+                    return this.items.length==0
+                    };
+                 Queue.prototype.size=function() {
+                    return this.items.length
+                    }; 
+            }
+            function passGame(namelist,num){
+                let queue= new Queue();
+                for (name of namelist){
+                    queue.enqueue(name)
+                }
+               
+                while(queue.size()>1){
+                    for(let i=0;i<num-1;i++){
+                    queue.enqueue(queue.dequeue())
+                }
+                queue.dequeue()
+                }
+                const endName=queue.front()
+                console.log(endName)
+                return namelist.indexOf(endName)
+            }
+            names=['lily','k','why','mo','jio'];
+            passGame(names,3);
+        </script>
+    </body>
+   
+</html>

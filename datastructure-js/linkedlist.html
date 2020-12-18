@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <script>
+      function LinkedList() {
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+        this.head = null;
+        this.length = 0;
+
+        LinkedList.prototype.append = function(data) {
+          let newNode = new Node(data);
+          if (this.length == 0) {
+            this.head = newNode;
+          } else {
+            let current = this.head;
+            while (current.next) {
+              current = current.next;
+            }
+            current.next = newNode;
+          }
+          this.length += 1;
+        };
+        LinkedList.prototype.insert = function(positon, data) {
+          if (positon < 0 || positon > this.length) return false;
+          let newNode = new Node(data);
+          if (positon == 0) {
+            newNode.next = this.head;
+            this.head = newNode;
+          } else {
+            let current = this.head;
+            let previous = null;
+            for (let index = 0; index < positon; index++) {
+              previous = current;
+              current = current.next;
+            }
+            newNode.next = current;
+            previous.next = newNode;
+          }
+          this.length += 1;
+          return true;
+        };
+        LinkedList.prototype.get = function(positon) {
+          if (positon < 0 || positon >= this.length) return null;
+          else {
+            let current = this.head;
+            let index = 0;
+            while (index++ < positon) {
+              current = current.next;
+            }
+            return current.data;
+          }
+        };
+        LinkedList.prototype.indexOf = function(data) {
+          let current = this.head;
+          let index = 0;
+          while (current) {
+            if (current.data == data) {
+              return index;
+            }
+            current = current.next;
+            index += 1;
+          }
+          return -1;
+        };
+        LinkedList.prototype.update = function(positon, element) {
+          if (positon < 0 || positon >= this.length) return false;
+          else {
+            let index = 0;
+            let current = this.head;
+            while (index < positon) {
+              current = current.next;
+              index += 1;
+            }
+            current.data = element;
+            return true;
+          }
+        };
+        LinkedList.prototype.removeAt = function(positon) {
+          if (positon < 0 || positon >= this.length) return null;
+          else {
+            let current = this.head;
+            if (positon == 0) {
+              this.head = this.head.next;
+            } else {
+              let index = 0;
+              let previous = null;
+              while (index++ < positon) {
+                previous = current;
+                current = current.next;
+              }
+              previous.next = current.next;
+            }
+            this.length -= 1;
+            return current.data;
+          }
+        };
+        LinkedList.prototype.remove = function(data) {
+          let positon = this.indexOf(data);
+          return this.removeAt(positon);
+        };
+        LinkedList.prototype.isEmpty = function() {
+          return this.length == 0;
+        };
+        LinkedList.prototype.size = function() {
+          return this.length;
+        };
+        /*   LinkedList.prototype.toString=function(){
+                let current=this.head
+                let listString=''
+                while(current){
+                    listString+=current.data+''
+                    current=current.next
+                }
+                return listString
+            } */
+      }
+      const list = new LinkedList();
+      list.append("1");
+      list.append("2");
+      list.append("3");
+      console.log(list.indexOf("2"));
+      var reverseList = function(head) {
+        if (head == null || head.next == null) return head;
+
+        p = reverseList(head.next);
+
+        head.next.next = head;
+        head.next = null;
+        return p;
+      };
+      console.log(reverseList(list.head));
+
+      /*      var a=[1,2,3,4]
+      a.forEach((item,index)=>{
+        console.log(item,index)
+        delete a[index]
+      })
+      console.log(a) */
+
+      let str = "this,that,there";
+      let arr = [...str.split(",")];
+      console.log(arr);
+    </script>
+  </body>
+</html>

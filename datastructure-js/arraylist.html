@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <script>
+    function arrayList() {
+      this.array = [];
+      arrayList.prototype.insert = function (item) {
+        this.array.push(item);
+      };
+      arrayList.prototype.toString = function () {
+        return this.array.join("-");
+      };
+      arrayList.prototype.swap = function (m, n) {
+        let temp = m;
+        m = n;
+        n = temp;
+      };
+      //冒泡
+      arrayList.prototype.bubblesort = function () {
+        let length = this.array.length;
+        for (let j = length - 1; j >= 0; j--) {
+          for (let i = 0; i < j; i++) {
+            if (this.array[i] > this.array[i + 1]) {
+              [this.array[i], this.array[i + 1]] = [
+                this.array[i + 1],
+                this.array[i]
+              ];
+            }
+          }
+        }
+      };
+      //选择排序
+      arrayList.prototype.selectsort = function () {
+        let length = this.array.length;
+        for (let j = 0; j < length - 1; j++) {
+          let min = j;
+          for (let i = min + 1; i < length; i++) {
+            if (this.array[min] > this.array[i]) {
+              min = i;
+            }
+          }
+
+          [this.array[min], this.array[j]] = [this.array[j], this.array[min]];
+        }
+      };
+      //插入排序
+      arrayList.insertsort = function () {
+        let length = this.array.length;
+        for (let i = 1; i < length; i++) {
+          let temp = this.array[i];
+          let j = i;
+          while (this.array[j - 1] > temp && j > 0) {
+            [this.array[j], this.array[j - 1]] = [
+              this.array[j - 1],
+              this.array[j]
+            ];
+            j--;
+          }
+        }
+      }
+
+      //希尔排序
+      arrayList.prototype.shellsort = function () {
+        let length = this.array.length
+        let gap = Math.floor(length / 2)
+        while (gap >= 1) {
+          for (let i = gap; i < length; i++) {
+            let temp = this.array[i]
+            let j = i
+            while (this.array[j - gap] > temp && j > gap - 1) {
+              [this.array[j], this.array[j - gap]] = [this.array[j - gap], this.array[j]];
+              j -= gap
+            }
+            //  this.array[j]=temp
+          }
+          gap = Math.floor(gap / 2)
+        }
+
+      }
+
+      //快排
+      arrayList.prototype.median = function (left, right) {
+        let center = Math.floor((left + right) / 2)
+        if (this.array[left] > this.array[center]) {
+          [this.array[left], this.array[center]] = [this.array[center], this.array[left]];
+        }
+        if (this.array[center] > this.array[right]) {
+          [this.array[center], this.array[right]] = [this.array[right], this.array[center]]
+        }
+        if (this.array[left] > this.array[right]) {
+          [this.array[left], this.array[right]] = [this.array[right], this.array[left]];
+        }
+        [this.array[center], this.array[right - 1]] = [this.array[right - 1], this.array[center]];
+        return this.array[right - 1]
+      }
+      arrayList.prototype.quicksort = function () {
+        this.quick(0, this.array.length - 1)
+      }
+      arrayList.prototype.quick = function (left, right) {
+        if (left >= right) return;
+        const pivot = this.median(left, right);
+        var i = left;
+        var j = right - 1;
+        while (true) {
+          while (this.array[++i] < pivot) { }
+          while (this.array[--j] > pivot) { }
+          if (i <= j) {
+            [this.array[i], this.array[j]] = [this.array[j], this.array[i]];
+          } else {
+            break;
+          }
+        }
+        // 江枢纽位置放在i位置
+        if (i < right - 1) {
+          [this.array[i], this.array[right - 1]] = [this.array[right - 1], this.array[i]];
+        }
+
+        // 分而治之
+        this.quick(left, i - 1);
+        this.quick(i, right);
+
+      }
+    }
+
+      let list = new arrayList();
+      list.insert(2132);
+      list.insert(23);
+      list.insert(213);
+      list.insert(273);
+      list.insert(4486);
+      list.insert(13);
+      list.insert(489);
+      list.quicksort();
+      console.log(list);
+
+      function quickSort(arr){
+        if(arr.length<1){
+            return arr;
+        }
+        var pivotIndex=Math.floor(arr.length/2);//找到那个基准数
+        var pivot=arr.splice(pivotIndex,1)[0]; //取出基准数，并去除，splice返回值为数组。
+        debugger
+        var left=[]; 
+        var right=[];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]<pivot){
+                left.push(arr[i]);
+            }else{
+                right.push(arr[i]);
+            }
+        }
+        return quickSort(left).concat([pivot],quickSort(right)); //加入基准数
+    }
+    arr2=[2,1,5,8,3,7,4,6,9];
+    console.log(quickSort(arr2));
+   
+    function quickSortRewrite (arr) {
+      let pivotIndex = Math.floor(arr.length/2);
+      let pivot = arr.splice(pivotIndex,1)[0];
+      let left = [];
+      let right = [];
+      for (let i = 0; i < arr.length; i++) {
+        if(arr[i] < pivot) {
+          left.push(arr[i]);
+        } else {
+          right.push(arr[i]);
+        }
+      }
+      return quickSortRewrite(left.concat([pivot],quickSortRewrite(right)))
+    }
+
+    let arr3= [3, 4, 5, 6, 7, 8]
+    let pivotIndex = Math.floor(arr3.length/2);
+    arr3.splice(pivotIndex, 1)
+    console.log(arr3)
+  </script>
+</body>
+
+</html>
