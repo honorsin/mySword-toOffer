@@ -29,7 +29,7 @@ recrusion = (arr) => {
     const result = []
     subRecrussions(path, set) => {
         if (path.length === arr.length) {
-            result.push(path)
+            result.push(path.concat())
         }
         for (let i = 0; i < arr.length; i++) {
             if (!set.has(i)) {
