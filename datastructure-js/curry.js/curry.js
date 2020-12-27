@@ -18,8 +18,3 @@ function getUrlToJson(url) {
     return obj
 }
 
-
-
-
-
-
